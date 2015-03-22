@@ -20,6 +20,10 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
-    "jsx-loader": "^0.12.2"
+    "css-loader": "^0.9.1",
+    "jsx-loader": "^0.12.2",
+    "less": "^2.4.0",
+    "less-loader": "^2.1.0",
+    "style-loader": "^0.8.3"
   }
 }

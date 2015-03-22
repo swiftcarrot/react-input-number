@@ -3,16 +3,17 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: 'react-input-number.js',
-    library: 'InputNumber'
+    library: 'InputNumber',
+    publicPath: "/builds/",
   },
   externals: {
     "react": "React"
   },
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: "jsx-loader" }
-      // { test: /\.less$/, loader: "style-loader!css-loader!less-loader" }
+      { test: /\.jsx$/, loader: "jsx-loader" },
+      { test: /\.less$/, loader: "style-loader!css-loader!less-loader" }
     ]
-  }
-  // devtool: "source-map"
+  },
+  devtool: "source-map"
 };
