@@ -66,6 +66,6 @@ module.exports = React.createClass({
   },
 
   _onChange: function(e) {
-    this.change(e.target.value);
+    this.change(parseInt(e.target.value, 10));
   }
 });
