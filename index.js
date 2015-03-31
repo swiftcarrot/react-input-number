@@ -1,1 +1,1 @@
-module.exports = require('./lib/input-number.jsx');
+module.exports = require('./dist/input-number.js');

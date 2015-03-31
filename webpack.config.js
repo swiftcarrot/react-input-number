@@ -1,17 +1,13 @@
 module.exports = {
-  entry: './index.js',
+  entry: './example/app.js',
   output: {
-    path: __dirname + '/dist',
-    filename: 'react-input-number.js',
-    library: 'InputNumber',
+    path: __dirname + '/builds',
+    filename: 'app.js',
     publicPath: "/builds/",
-  },
-  externals: {
-    "react": "React"
   },
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: "jsx-loader" },
+      { test: /\.js$/, loader: "jsx-loader" },
       { test: /\.less$/, loader: "style-loader!css-loader!less-loader" }
     ]
   },

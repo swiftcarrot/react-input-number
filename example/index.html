@@ -2,11 +2,6 @@
 <html>
 <head>
   <title>react-input-number</title>
-
-  <script src="https://fb.me/react-0.13.1.js"></script>
-  <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
-  <script src="/builds/react-input-number.js"></script>
-
   <style type="text/css">
   .m-input-number {
     width: 35px;
@@ -15,30 +10,7 @@
 </head>
 <body>
 
-<div id="target"></div>
-
-<script type="text/jsx">
-
-var App = React.createClass({
-  getInitialState: function() {
-    return {number: 73};
-  },
-
-  render: function() {
-    return <InputNumber
-      value={this.state.number}
-      onChange={this._onChange}/>;
-  },
-
-  _onChange: function(value) {
-    this.setState({number: value});
-  }
-});
-
-var target = document.getElementById('target');
-React.render(<App/>, target);
-
-</script>
+<script src="/builds/app.js"></script>
 
 </body>
 </html>
