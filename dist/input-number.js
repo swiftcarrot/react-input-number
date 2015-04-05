@@ -2,30 +2,42 @@ var React = require('react');
 
 var KEY_UP = 38;
 var KEY_DOWN = 40;
+var KEY_ENTER = 13;
+
+function parse(value) {
+  if(value) return parseInt(value || 0, 10);
+  return '';
+}
 
 module.exports = React.createClass({
   displayName: 'InputNumber',
 
   getInitialState: function() {
-    return {controlClass: 'control'};
+    return {
+      value: this.props.value
+    }
   },
 
   render: function() {
-    var value = parseInt(this.props.value || 0, 10);
-    this.value = value;
+    var value = parse(this.state.value);
 
-    return (
-      React.createElement("span", {className: "m-input-number"}, 
-        React.createElement("input", {type: "text", value: value, 
-          onFocus: this._onFocus, onBlur: this._onBlur, 
-          onKeyDown: this._onKeyDown, 
-          onChange: this._onChange}), 
-        React.createElement("span", {className: this.state.controlClass}, 
-          React.createElement("span", {className: "up", onClick: this.up}, "▲"), 
-          React.createElement("span", {className: "down", onClick: this.down}, "▼")
-        )
-      )
-    );
+    return React.createElement("input", {
+      className: this.props.className, 
+      type: "text", 
+      value: value, 
+      onKeyUp: this._onKeyUp, 
+      onKeyDown: this._onKeyDown, 
+      onChange: this._onChange});
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if(!this._updated) {
+      this.setState({
+        value: parse(nextProps.value)
+      });
+    } else {
+      this._updated = false;
+    }
   },
 
   change: function(value) {
@@ -35,37 +47,37 @@ module.exports = React.createClass({
   },
 
   up: function() {
-    this.change(this.value+1);
+    this.change(this.state.value+1);
   },
 
   down: function() {
-    this.change(this.value-1);
-  },
-
-  _onFocus: function() {
-    this.setState({
-      controlClass: 'control control-hide'
-    });
-  },
-
-  _onBlur: function() {
-    this.setState({
-      controlClass: 'control'
-    });
+    this.change(this.state.value-1);
   },
 
   _onKeyDown: function(e) {
     switch(e.keyCode) {
       case KEY_UP:
+        e.preventDefault();
         this.up();
         break;
       case KEY_DOWN:
+        e.preventDefault();
         this.down();
         break;
     }
   },
 
+  _onKeyUp: function(e) {
+    if(e.keyCode === KEY_ENTER) {
+      this.change(this.state.value);
+      this._updated = true;
+    }
+  },
+
   _onChange: function(e) {
-    this.change(parseInt(e.target.value, 10));
+    var val = parse(e.target.value);
+    this.setState({
+      value: val
+    });
   }
 });
