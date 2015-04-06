@@ -3,7 +3,7 @@ var InputNumber = require('../lib/input-number.js')
 
 var App = React.createClass({
   getInitialState: function() {
-    return {number: 73};
+    return {number: 73.1};
   },
 
   render: function() {
@@ -11,12 +11,14 @@ var App = React.createClass({
       <div>
         <InputNumber
           className="input"
+          min={10} max={100} step={0.03}
           value={this.state.number}
           onChange={this._onChange}/>
         <br/>
         <input
           className="input"
           type="number"
+          min="10" max="100" step="0.03"
           value={this.state.number}
           onChange={this._onInputChange}/>
       </div>
