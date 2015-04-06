@@ -1,6 +1,5 @@
 var React = require('react');
 var InputNumber = require('../lib/input-number.js')
-require('!style!css!less!../lib/input-number.less');
 
 var App = React.createClass({
   getInitialState: function() {
