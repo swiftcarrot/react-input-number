@@ -4,16 +4,14 @@
   "description": "React number input component",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/mocha/bin/mocha"
   },
-
   "keywords": [
     "react",
     "react-component",
     "number",
     "input"
   ],
-
   "repository": {
     "type": "git",
     "url": "https://github.com/wangzuo/react-input-number.git"
@@ -32,6 +30,7 @@
     "jsx-loader": "^0.12.2",
     "less": "^2.4.0",
     "less-loader": "^2.1.0",
+    "mocha": "^2.2.4",
     "style-loader": "^0.8.3"
   }
 }
