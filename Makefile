@@ -1,4 +1,5 @@
 all:
-	jsx --no-cache-dir lib dist
+	babel lib --out-dir dist
+	webpack -p
 clean:
 	rm dist/*
