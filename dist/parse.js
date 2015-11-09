@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (value, step, max, min) {
   if (value === '') return '';
   if (value) {
