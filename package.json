@@ -41,7 +41,7 @@
     "github-pages-deploy": "0.0.3",
     "less": "^2.4.0",
     "less-loader": "^2.1.0",
-    "mocha": "^2.2.4",
+    "mocha": "^3.1.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.3"
   },
