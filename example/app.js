@@ -1,39 +1,43 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var InputNumber = require('../lib/input-number.js')
+const React = require('react');
+const ReactDOM = require('react-dom');
+const InputNumber = require('../lib/input-number.js')
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {number: 73.1};
-  },
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-  render: function() {
+    this.state = {
+      number: 73.1
+    };
+  }
+
+  _onChange(value) {
+    console.log('onChange value', value);
+    this.setState({number: value});
+  }
+
+  _onInputChange(e) {
+    this.setState({number: e.target.value});
+  }
+
+  render() {
     return (
       <div>
         <InputNumber
           className="input"
           min={10} max={100} step={0.03}
           value={this.state.number}
-          onChange={this._onChange}/>
+          onChange={value => this._onChange(value)} />
         <br/>
         <input
           className="input"
           type="number"
           min="10" max="100" step="0.03"
           value={this.state.number}
-          onChange={this._onInputChange}/>
+          onChange={(e) => this._onInputChange(e)} />
       </div>
     );
-  },
-
-  _onChange: function(value) {
-    console.log('onChange value', value);
-    this.setState({number: value});
-  },
-
-  _onInputChange: function(e) {
-    this.setState({number: e.target.value});
   }
-});
+}
 
 ReactDOM.render(<App/>, document.getElementById('app'));
