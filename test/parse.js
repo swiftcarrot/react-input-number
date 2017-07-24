@@ -34,21 +34,21 @@ describe('parse', function() {
   });
 
   it('step 1', function() {
-    assert.strictEqual(parse(2+1, 1), 3);
-    assert.strictEqual(parse(2-1, 1), 1);
-    assert.strictEqual(parse(2.1+1, 1), 3.1);
-    assert.strictEqual(parse(2.1-1, 1), 1.1);
+    assert.strictEqual(parse(2 + 1, 1), 3);
+    assert.strictEqual(parse(2 - 1, 1), 1);
+    assert.strictEqual(parse(2.1 + 1, 1), 3.1);
+    assert.strictEqual(parse(2.1 - 1, 1), 1.1);
   });
 
   it('step 0.1', function() {
-    assert.strictEqual(parse(2+0.1, 0.1), 2.1);
-    assert.strictEqual(parse(2-0.1, 0.1), 1.9);
-    assert.strictEqual(parse(2.1+0.1, 0.1), 2.2);
-    assert.strictEqual(parse(2.1-0.1, 0.1), 2.0);
+    assert.strictEqual(parse(2 + 0.1, 0.1), 2.1);
+    assert.strictEqual(parse(2 - 0.1, 0.1), 1.9);
+    assert.strictEqual(parse(2.1 + 0.1, 0.1), 2.2);
+    assert.strictEqual(parse(2.1 - 0.1, 0.1), 2.0);
   });
 
   it('step 0.03', function() {
-    assert.strictEqual(parse(73.43+0.03, 0.03), 73.46);
-    assert.strictEqual(parse(73.43-0.03, 0.03), 73.40);
+    assert.strictEqual(parse(73.43 + 0.03, 0.03), 73.46);
+    assert.strictEqual(parse(73.43 - 0.03, 0.03), 73.4);
   });
 });

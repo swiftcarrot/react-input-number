@@ -7,7 +7,7 @@
     "start": "webpack-dev-server -c --port=8888",
     "build": "make",
     "deploy": "npm run build && github-pages-deploy",
-    "test": "node_modules/mocha/bin/mocha"
+    "test": "mocha"
   },
   "github-pages-deploy": {
     "src": "example"
@@ -33,18 +33,18 @@
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.20.0",
-    "babel-loader": "^6.2.9",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "css-loader": "^0.26.1",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
     "github-pages-deploy": "0.0.3",
-    "less": "^2.4.0",
-    "less-loader": "^2.1.0",
-    "mocha": "^3.2.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.14.0"
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "mocha": "^3.4.2",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0"
   },
   "dependencies": {
     "blacklist": "^1.1.4",
