@@ -12,12 +12,8 @@
   "github-pages-deploy": {
     "src": "example"
   },
-  "keywords": [
-    "react",
-    "react-component",
-    "number",
-    "input"
-  ],
+  "keywords": ["react", "react-component", "number", "input"],
+  "files": ["dist", "index.js"],
   "repository": {
     "type": "git",
     "url": "https://github.com/wangzuo/react-input-number.git"
