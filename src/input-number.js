@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import parseNumber from './parse';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 const KEY_ENTER = 13;
 
-export default class InputNumber extends React.Component {
+export default class InputNumber extends Component {
   static defaultProps = {
     step: 1
   };
