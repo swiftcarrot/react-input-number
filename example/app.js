@@ -1,9 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const InputNumber = require('../lib/input-number.js');
-const packageJSON = require('../package.json');
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import InputNumber from '../src/input-number';
+import pkg from '../package.json';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>
-          {packageJSON.name} {packageJSON.version}
+          {pkg.name} {pkg.version}
         </h1>
         <InputNumber
           className="input"
@@ -50,4 +50,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+render(<App />, document.getElementById('app'));

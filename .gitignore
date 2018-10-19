@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore//Node.gitignore
+### https://raw.github.com/github/gitignore/ea28c14da0faf75047165c10223635ba95566ad7/Node.gitignore
 
 # Logs
 logs
@@ -73,3 +73,7 @@ typings/
 
 # Serverless directories
 .serverless
+
+dist
+
+example/bundle*

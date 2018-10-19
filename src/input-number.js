@@ -1,12 +1,15 @@
-const blacklist = require('blacklist');
-const React = require('react');
-const parseNumber = require('./parse');
+import React from 'react';
+import parseNumber from './parse';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 const KEY_ENTER = 13;
 
-class InputNumber extends React.Component {
+export default class InputNumber extends React.Component {
+  static defaultProps = {
+    step: 1
+  };
+
   constructor(props) {
     super(props);
 
@@ -39,7 +42,7 @@ class InputNumber extends React.Component {
     this.change(this.state.value - this.props.step);
   }
 
-  handleKeyDown(e) {
+  handleKeyDown = e => {
     switch (e.keyCode) {
       case KEY_UP:
         e.preventDefault();
@@ -50,30 +53,30 @@ class InputNumber extends React.Component {
         this.down();
         break;
     }
-  }
+  };
 
-  handleKeyUp(e) {
+  handleKeyUp = e => {
     if (e.keyCode === KEY_ENTER) {
       this.change(this.state.value);
     }
-  }
+  };
 
-  handleChange(e) {
+  handleChange = e => {
     this.setState({
       value: e.target.value
     });
-  }
+  };
 
   render() {
-    const props = blacklist(
-      this.props,
-      'step',
-      'min',
-      'max',
-      'onKeyUp',
-      'onKeyDown',
-      'onChange'
-    );
+    const {
+      step,
+      min,
+      max,
+      onKeyUp,
+      onKeyDown,
+      onChange,
+      ...props
+    } = this.props;
     const { value } = this.state;
 
     return (
@@ -81,16 +84,10 @@ class InputNumber extends React.Component {
         {...props}
         type="text"
         value={value}
-        onKeyUp={e => this.handleKeyUp(e)}
-        onKeyDown={e => this.handleKeyDown(e)}
-        onChange={e => this.handleChange(e)}
+        onKeyUp={this.handleKeyUp}
+        onKeyDown={this.handleKeyDown}
+        onChange={this.handleChange}
       />
     );
   }
 }
-
-InputNumber.defaultProps = {
-  step: 1
-};
-
-module.exports = InputNumber;
