@@ -4,22 +4,18 @@ import InputNumber from '../src/input-number';
 import pkg from '../package.json';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    number: 73.1
+  };
 
-    this.state = {
-      number: 73.1
-    };
-  }
-
-  _onChange(value) {
+  handleChange = value => {
     console.log('onChange value', value);
     this.setState({ number: value });
-  }
+  };
 
-  _onInputChange(e) {
+  handleInputChange = e => {
     this.setState({ number: e.target.value });
-  }
+  };
 
   render() {
     return (
@@ -33,7 +29,7 @@ class App extends Component {
           max={100}
           step={0.03}
           value={this.state.number}
-          onChange={value => this._onChange(value)}
+          onChange={this.handleChange}
         />
         <br />
         <input
@@ -43,7 +39,7 @@ class App extends Component {
           max="100"
           step="0.03"
           value={this.state.number}
-          onChange={e => this._onInputChange(e)}
+          onChange={this.handleInputChange}
         />
       </div>
     );

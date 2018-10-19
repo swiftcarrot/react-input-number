@@ -23,7 +23,7 @@ npm install react-input-number --save
   max={100}
   step={0.03}
   value={this.state.number}
-  onChange={value => this._onChange(value)}
+  onChange={value => this.handleChange(value)}
 />
 ```
 

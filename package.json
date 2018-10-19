@@ -13,15 +13,8 @@
   "github-pages-deploy": {
     "src": "example"
   },
-  "keywords": [
-    "react",
-    "react-component",
-    "number",
-    "input"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["react", "react-component", "number", "input"],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "https://github.com/wangzuo/react-input-number.git"
@@ -64,5 +57,9 @@
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "classnames": "^2.2.6"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["src/**/*.js"]
   }
 }
