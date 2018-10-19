@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --port=8888",
     "build": "rollup -c",
     "deploy": "webpack --mode production  && github-pages-deploy",
-    "test": "mocha"
+    "test": "jest --coverage"
   },
   "github-pages-deploy": {
     "src": "example"
@@ -42,12 +42,16 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "github-pages-deploy": "0.0.3",
+    "jest": "^23.6.0",
     "less": "^2.7.2",
     "mocha": "^3.4.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "regenerator-runtime": "^0.12.1",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",

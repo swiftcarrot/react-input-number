@@ -1,4 +1,4 @@
-module.exports = (value, step, max, min) => {
+function parse(value, step, max, min) {
   if (value === '') return '';
   if (value) {
     value = parseFloat(value);
@@ -14,4 +14,6 @@ module.exports = (value, step, max, min) => {
   }
 
   return value;
-};
+}
+
+export default parse;
