@@ -1,45 +1,69 @@
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
 import React, { Component } from 'react';
-import parseNumber from './parse';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 const KEY_ENTER = 13;
+
+export function parseText(value, { step, max, min } = {}) {
+  if (isNumber(value)) return value;
+
+  if (isString(value)) {
+    value = value.trim();
+
+    if (!value) return '';
+    const num = parseFloat(value);
+
+    if (typeof max === 'number' && num > max) return max;
+    if (typeof min === 'number' && num < min) return min;
+
+    if (step) {
+      const p = (step.toString().split('.')[1] || []).length;
+      if (p) return parseFloat(num.toFixed(p));
+    }
+
+    return num;
+  }
+
+  return '';
+}
 
 export default class InputNumber extends Component {
   static defaultProps = {
     step: 1
   };
 
-  constructor(props) {
-    super(props);
+  static getDerivedStateFromProps(props, state) {
+    const { value } = props;
 
-    this.state = {
-      value: this.parse(props.value)
-    };
+    if (isNumber(value)) {
+      if (parseText(state.text, props) !== value) {
+        return {
+          text: isNumber(value) ? `${value}` : ''
+        };
+      }
+    }
+
+    return null;
   }
 
-  parse(val) {
-    return parseNumber(val, this.props.step, this.props.max, this.props.min);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: this.parse(nextProps.value)
-    });
-  }
+  state = {
+    text: ''
+  };
 
   change(value) {
     if (this.props.onChange) {
-      this.props.onChange(this.parse(value));
+      this.props.onChange(value);
     }
   }
 
   up() {
-    this.change(this.state.value + this.props.step);
+    // this.change(this.state.value + this.props.step);
   }
 
   down() {
-    this.change(this.state.value - this.props.step);
+    // this.change(this.state.value - this.props.step);
   }
 
   handleKeyDown = e => {
@@ -62,8 +86,10 @@ export default class InputNumber extends Component {
   };
 
   handleChange = e => {
-    this.setState({
-      value: e.target.value
+    const text = e.target.value;
+    this.setState({ text }, () => {
+      const parsed = parseText(text, this.props);
+      this.change(parsed);
     });
   };
 
@@ -77,13 +103,12 @@ export default class InputNumber extends Component {
       onChange,
       ...props
     } = this.props;
-    const { value } = this.state;
 
     return (
       <input
         {...props}
         type="text"
-        value={value}
+        value={this.state.text}
         onKeyUp={this.handleKeyUp}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleChange}

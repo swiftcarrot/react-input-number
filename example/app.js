@@ -9,7 +9,6 @@ class App extends Component {
   };
 
   handleChange = value => {
-    console.log('onChange value', value);
     this.setState({ number: value });
   };
 
@@ -23,6 +22,9 @@ class App extends Component {
         <h1>
           {pkg.name} {pkg.version}
         </h1>
+
+        <div>number: {this.state.number}</div>
+
         <InputNumber
           className="input"
           min={10}
