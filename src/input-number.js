@@ -6,7 +6,7 @@ const KEY_UP = 38;
 const KEY_DOWN = 40;
 const KEY_ENTER = 13;
 
-export function parseText(value, { step, max, min } = {}) {
+export function parseText(value) {
   if (isNumber(value)) return value;
 
   if (isString(value)) {
@@ -15,18 +15,20 @@ export function parseText(value, { step, max, min } = {}) {
     if (!value) return '';
     const num = parseFloat(value);
 
-    if (typeof max === 'number' && num > max) return max;
-    if (typeof min === 'number' && num < min) return min;
-
-    if (step) {
-      const p = (step.toString().split('.')[1] || []).length;
-      if (p) return parseFloat(num.toFixed(p));
-    }
-
     return num;
   }
 
   return '';
+}
+
+export function parseNumber(num, { step, max, min } = {}) {
+  if (typeof max === 'number' && num > max) return max;
+  if (typeof min === 'number' && num < min) return min;
+
+  if (step) {
+    const p = (step.toString().split('.')[1] || []).length;
+    if (p) return parseFloat(num.toFixed(p));
+  }
 }
 
 export default class InputNumber extends Component {
@@ -59,11 +61,12 @@ export default class InputNumber extends Component {
   }
 
   up() {
-    // this.change(this.state.value + this.props.step);
+    const parsed = parseText(this.state.text, this.props);
+    this.change(this.state.text + this.props.step);
   }
 
   down() {
-    // this.change(this.state.value - this.props.step);
+    this.change(this.state.text - this.props.step);
   }
 
   handleKeyDown = e => {
