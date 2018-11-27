@@ -11,6 +11,7 @@ React number input component
 ### Installation
 
 ```sh
+yarn add react-input-number
 npm install react-input-number --save
 ```
 

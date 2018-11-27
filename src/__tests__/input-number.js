@@ -1,51 +1,90 @@
-import { parseText } from '../input-number';
+import React, { Component } from 'react';
+import { mount } from 'enzyme';
+import InputNumber, { parseText, changeValue } from '../input-number';
 
-test('empty string', function() {
-  expect(parseText('')).toStrictEqual('');
-  expect(parseText('', 1)).toStrictEqual('');
-  expect(parseText('', 1, 100)).toStrictEqual('');
-  expect(parseText('', 1, 100, 10)).toStrictEqual('');
+test('parseText', () => {
+  expect(parseText('')).toEqual('');
+  expect(parseText('-')).toEqual('');
+  expect(parseText('-100')).toEqual(-100);
+  expect(parseText('0')).toEqual(0);
+  expect(parseText('100.')).toEqual(100);
+  expect(parseText('0.')).toEqual(0);
+  expect(parseText('0.0')).toEqual(0);
+  expect(parseText('0.06')).toEqual(0.06);
 });
 
-test('string', function() {
-  expect(parseText('123.1')).toStrictEqual(123.1);
+test('parseText with min/max', () => {
+  expect(parseText('', { min: 10 })).toEqual('');
+  expect(parseText('-', { min: 10 })).toEqual('');
+  expect(parseText('10', { min: 100 })).toEqual(100);
+
+  expect(parseText('', { max: 100 })).toEqual('');
+  expect(parseText('1000', { max: 100 })).toEqual(100);
 });
 
-test('integer', function() {
-  expect(parseText(123)).toStrictEqual(123);
+test('changeValue', () => {
+  expect(changeValue('+', 10, { step: 1 })).toEqual(11);
+  expect(changeValue('-', 10, { step: 1 })).toEqual(9);
+
+  expect(changeValue('+', 9.7, { step: 0.3 })).toEqual(10);
+  expect(changeValue('-', 9.7, { step: 0.3 })).toEqual(9.4);
 });
 
-test('float', function() {
-  expect(parseText(123.1)).toStrictEqual(123.1);
-});
+test('InputNumber', () => {
+  class App extends Component {
+    state = { number: 12 };
+    render() {
+      return (
+        <InputNumber
+          value={this.state.number}
+          onChange={v => this.setState({ number: v })}
+        />
+      );
+    }
+  }
 
-test('NaN', function() {
-  expect(parseText('aa')).toStrictEqual('');
-});
+  const wrap = mount(<App />);
 
-test('with max', function() {
-  expect(parseText(120, 1, 100)).toStrictEqual(100);
-});
+  expect(wrap.find(InputNumber).state()).toEqual({
+    prev: 12,
+    value: 12,
+    text: '12'
+  });
 
-test('with min', function() {
-  expect(parseText(2.1, 0.1, 100, 10)).toStrictEqual(10);
-});
+  wrap.find('input').simulate('change', {
+    target: { value: '-' }
+  });
 
-test('step 1', function() {
-  expect(parseText(2 + 1, 1)).toStrictEqual(3);
-  expect(parseText(2 - 1, 1)).toStrictEqual(1);
-  expect(parseText(2.1 + 1, 1)).toStrictEqual(3.1);
-  expect(parseText(2.1 - 1, 1)).toStrictEqual(1.1);
-});
+  expect(wrap.state().number).toBe('');
 
-test('step 0.1', function() {
-  expect(parseText(2 + 0.1, 0.1)).toStrictEqual(2.1);
-  expect(parseText(2 - 0.1, 0.1)).toStrictEqual(1.9);
-  expect(parseText(2.1 + 0.1, 0.1)).toStrictEqual(2.2);
-  expect(parseText(2.1 - 0.1, 0.1)).toStrictEqual(2.0);
-});
+  wrap.find('input').simulate('change', {
+    target: { value: '-1' }
+  });
 
-test('step 0.03', function() {
-  expect(parseText(73.43 + 0.03, 0.03)).toStrictEqual(73.46);
-  expect(parseText(73.43 - 0.03, 0.03)).toStrictEqual(73.4);
+  expect(wrap.state().number).toBe(-1);
+
+  wrap.find('input').simulate('change', {
+    target: { value: '0' }
+  });
+
+  expect(wrap.state().number).toBe(0);
+
+  wrap.find('input').simulate('change', {
+    target: { value: '0.0' }
+  });
+  expect(wrap.state().number).toBe(0);
+
+  wrap.find('input').simulate('change', {
+    target: { value: '0.06' }
+  });
+
+  expect(wrap.state().number).toBe(0.06);
+
+  wrap.setState({ number: -10.2 });
+
+  expect(wrap.find(InputNumber).state()).toEqual({
+    prev: -10.2,
+    value: -10.2,
+    text: '-10.2'
+  });
 });

@@ -5,13 +5,10 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "start": "webpack-dev-server --port=8888",
     "build": "rollup -c",
-    "deploy": "webpack --mode production  && github-pages-deploy",
-    "test": "jest --coverage"
-  },
-  "github-pages-deploy": {
-    "src": "example"
+    "test": "jest --coverage",
+    "prepublishOnly": "npm test && npm run build",
+    "watch": "rollup -cw"
   },
   "keywords": [
     "react",
@@ -26,7 +23,7 @@
     "type": "git",
     "url": "https://github.com/wangzuo/react-input-number.git"
   },
-  "author": "Wang Zuo",
+  "author": "Wang Zuo <wzuoadjusted@gmail.com> (https://wangzuo.me/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wangzuo/react-input-number/issues"
@@ -36,38 +33,37 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "lodash": "^4.17.11"
+  },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.4",
-    "github-pages-deploy": "0.0.3",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "jest": "^23.6.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-test-renderer": "^16.5.2",
-    "regenerator-runtime": "^0.12.1",
-    "rollup": "^0.66.6",
+    "regenerator-runtime": "^0.13.1",
+    "rollup": "^0.67.3",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "webpack": "^4.21.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.1.2",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.11"
+    "rollup-plugin-node-resolve": "^3.4.0"
   },
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
     ]
   }
 }

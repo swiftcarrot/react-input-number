@@ -1,56 +1,68 @@
+import isNaN from 'lodash/isNaN';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import React, { Component } from 'react';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
-const KEY_ENTER = 13;
 
-export function parseText(value) {
-  if (isNumber(value)) return value;
+export function parseText(text, { max, min } = {}) {
+  if (isNumber(text)) return text;
 
-  if (isString(value)) {
-    value = value.trim();
+  if (isString(text)) {
+    text = text.trim();
 
-    if (!value) return '';
-    const num = parseFloat(value);
+    if (!text) return '';
+    const num = parseFloat(text);
 
-    return num;
+    if (!isNaN(num)) {
+      if (isNumber(max) && num > max) return max;
+      if (isNumber(min) && num < min) return min;
+      return num;
+    }
   }
 
   return '';
 }
 
-export function parseNumber(num, { step, max, min } = {}) {
-  if (typeof max === 'number' && num > max) return max;
-  if (typeof min === 'number' && num < min) return min;
-
-  if (step) {
-    const p = (step.toString().split('.')[1] || []).length;
-    if (p) return parseFloat(num.toFixed(p));
+export function changeValue(mod, value, { max, min, step } = {}) {
+  if (value === '') {
+    if (isNumber(min)) return min;
   }
+
+  value = mod === '+' ? value + step : value - step;
+
+  if (isNumber(max) && value > max) return max;
+  if (isNumber(min) && value < min) return min;
+
+  const p = (step.toString().split('.')[1] || []).length;
+  if (p) {
+    return parseFloat(value.toFixed(p));
+  }
+
+  return value;
 }
 
-export default class InputNumber extends Component {
+class InputNumber extends Component {
   static defaultProps = {
+    value: '',
     step: 1
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { value } = props;
-
-    if (isNumber(value)) {
-      if (parseText(state.text, props) !== value) {
-        return {
-          text: isNumber(value) ? `${value}` : ''
-        };
-      }
+    if (props.value !== state.prev && props.value !== state.value) {
+      return {
+        prev: props.value,
+        value: props.value,
+        text: `${props.value}`
+      };
     }
 
-    return null;
+    return { prev: props.value };
   }
 
   state = {
+    value: '',
     text: ''
   };
 
@@ -61,61 +73,45 @@ export default class InputNumber extends Component {
   }
 
   up() {
-    const parsed = parseText(this.state.text, this.props);
-    this.change(this.state.text + this.props.step);
+    this.change(changeValue('+', this.state.value, this.props));
   }
 
   down() {
-    this.change(this.state.text - this.props.step);
+    this.change(changeValue('-', this.state.value, this.props));
   }
 
   handleKeyDown = e => {
-    switch (e.keyCode) {
-      case KEY_UP:
-        e.preventDefault();
-        this.up();
-        break;
-      case KEY_DOWN:
-        e.preventDefault();
-        this.down();
-        break;
+    if (e.keyCode === KEY_UP) {
+      this.up();
+    } else if (e.keyCode === KEY_DOWN) {
+      this.down();
+    }
+
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(e);
     }
   };
 
-  handleKeyUp = e => {
-    if (e.keyCode === KEY_ENTER) {
-      this.change(this.state.value);
-    }
-  };
-
-  handleChange = e => {
-    const text = e.target.value;
-    this.setState({ text }, () => {
-      const parsed = parseText(text, this.props);
-      this.change(parsed);
+  handleChange = text => {
+    const value = parseText(text, this.props);
+    this.setState({ text, value }, () => {
+      this.change(value);
     });
   };
 
   render() {
-    const {
-      step,
-      min,
-      max,
-      onKeyUp,
-      onKeyDown,
-      onChange,
-      ...props
-    } = this.props;
+    const { step, min, max, value, onChange, ...props } = this.props;
 
     return (
       <input
         {...props}
         type="text"
         value={this.state.text}
-        onKeyUp={this.handleKeyUp}
+        onChange={e => this.handleChange(e.target.value)}
         onKeyDown={this.handleKeyDown}
-        onChange={this.handleChange}
       />
     );
   }
 }
+
+export default InputNumber;
