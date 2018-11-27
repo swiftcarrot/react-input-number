@@ -28,6 +28,7 @@ export function parseText(text, { max, min } = {}) {
 export function changeValue(mod, value, { max, min, step } = {}) {
   if (value === '') {
     if (isNumber(min)) return min;
+    return '';
   }
 
   value = mod === '+' ? value + step : value - step;

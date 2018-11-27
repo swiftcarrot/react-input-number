@@ -23,6 +23,9 @@ test('parseText with min/max', () => {
 });
 
 test('changeValue', () => {
+  expect(changeValue('+', '')).toEqual('');
+  expect(changeValue('+', '', { min: 10 })).toEqual(10);
+
   expect(changeValue('+', 10, { step: 1 })).toEqual(11);
   expect(changeValue('-', 10, { step: 1 })).toEqual(9);
 
