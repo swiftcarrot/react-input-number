@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -52,7 +52,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "regenerator-runtime": "^0.13.1",
-    "rollup": "^0.67.3",
+    "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0"
