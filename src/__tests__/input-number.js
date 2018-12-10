@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import InputNumber, { parseText, changeValue } from '../input-number';
 
@@ -31,6 +32,19 @@ test('changeValue', () => {
 
   expect(changeValue('+', 9.7, { step: 0.3 })).toEqual(10);
   expect(changeValue('-', 9.7, { step: 0.3 })).toEqual(9.4);
+});
+
+test('render', () => {
+  const component = renderer.create(<InputNumber />);
+  expect(component.toJSON()).toMatchInlineSnapshot(`
+<input
+  autoComplete="off"
+  onChange={[Function]}
+  onKeyDown={[Function]}
+  type="text"
+  value=""
+/>
+`);
 });
 
 test('InputNumber', () => {

@@ -46,6 +46,7 @@ export function changeValue(mod, value, { max, min, step } = {}) {
 
 class InputNumber extends Component {
   static defaultProps = {
+    autoComplete: 'off',
     value: '',
     step: 1
   };
