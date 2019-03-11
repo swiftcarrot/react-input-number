@@ -30,9 +30,11 @@ test('render', () => {
   expect(component.toJSON()).toMatchInlineSnapshot(`
 <input
   autoComplete="off"
+  className="css-y2zyrq-InputNumber"
   onChange={[Function]}
   onKeyDown={[Function]}
-  type="text"
+  step={1}
+  type="number"
   value=""
 />
 `);
