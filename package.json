@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "4.0.13",
+  "version": "4.0.14",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/wangzuo/react-input-number",
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "babel-jest": "^24.3.0",
-    "babel-preset-zkit": "^0.2.2",
+    "babel-preset-zkit": "^0.2.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "jest": "^24.3.0",

@@ -14,24 +14,15 @@ test('parseText', () => {
   expect(parseText('0.06')).toEqual(0.06);
 });
 
-test('parseText with min/max', () => {
-  expect(parseText('', { min: 10 })).toEqual('');
-  expect(parseText('-', { min: 10 })).toEqual('');
-  expect(parseText('10', { min: 100 })).toEqual(100);
-
-  expect(parseText('', { max: 100 })).toEqual('');
-  expect(parseText('1000', { max: 100 })).toEqual(100);
-});
-
 test('changeValue', () => {
   expect(changeValue('+', '')).toEqual('');
-  expect(changeValue('+', '', { min: 10 })).toEqual(10);
+  expect(changeValue('+', '', null, 10, null)).toEqual(10);
 
-  expect(changeValue('+', 10, { step: 1 })).toEqual(11);
-  expect(changeValue('-', 10, { step: 1 })).toEqual(9);
+  expect(changeValue('+', 10, null, null, 1)).toEqual(11);
+  expect(changeValue('-', 10, null, null, 1)).toEqual(9);
 
-  expect(changeValue('+', 9.7, { step: 0.3 })).toEqual(10);
-  expect(changeValue('-', 9.7, { step: 0.3 })).toEqual(9.4);
+  expect(changeValue('+', 9.7, null, null, 0.3)).toEqual(10);
+  expect(changeValue('-', 9.7, null, null, 0.3)).toEqual(9.4);
 });
 
 test('render', () => {
@@ -62,28 +53,19 @@ test('InputNumber', () => {
 
   const wrap = mount(<App />);
 
-  expect(wrap.find(InputNumber).state()).toEqual({
-    prev: 12,
-    value: 12,
-    text: '12'
-  });
-
   wrap.find('input').simulate('change', {
     target: { value: '-' }
   });
-
   expect(wrap.state().number).toBe('');
 
   wrap.find('input').simulate('change', {
     target: { value: '-1' }
   });
-
   expect(wrap.state().number).toBe(-1);
 
   wrap.find('input').simulate('change', {
     target: { value: '0' }
   });
-
   expect(wrap.state().number).toBe(0);
 
   wrap.find('input').simulate('change', {
@@ -94,14 +76,10 @@ test('InputNumber', () => {
   wrap.find('input').simulate('change', {
     target: { value: '0.06' }
   });
-
   expect(wrap.state().number).toBe(0.06);
 
   wrap.setState({ number: -10.2 });
-
-  expect(wrap.find(InputNumber).state()).toEqual({
-    prev: -10.2,
-    value: -10.2,
-    text: '-10.2'
-  });
+  setTimeout(() => {
+    expect(wrap.find('input').props().value).toBe(-10.2);
+  }, 10);
 });

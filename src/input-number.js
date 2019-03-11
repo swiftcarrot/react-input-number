@@ -1,12 +1,90 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import isNaN from 'lodash/isNaN';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 
-export function parseText(text, { max, min } = {}) {
+const InputNumber = ({
+  step,
+  min,
+  max,
+  value,
+  onChange,
+  onKeyDown,
+  ...props
+}) => {
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
+
+  function handleChange(e) {
+    const text = e.target.value;
+    const value = parseText(text);
+
+    setText(text);
+    if (onChange) {
+      onChange(value);
+    }
+  }
+
+  function handleKeyDown(e) {
+    if (e.keyCode === KEY_UP) {
+      up();
+    } else if (e.keyCode === KEY_DOWN) {
+      down();
+    }
+
+    if (onKeyDown) {
+      onKeyDown(e);
+    }
+  }
+
+  function up() {
+    if (onChange) {
+      onChange(changeValue('+', value, max, min, step));
+    }
+  }
+
+  function down() {
+    if (onChange) {
+      onChange(changeValue('-', value, max, min, step));
+    }
+  }
+
+  return (
+    <input
+      {...props}
+      css={{
+        '-moz-appearance': 'textfield',
+        '&::-webkit-inner-spin-button, &::::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0
+        }
+      }}
+      type="number"
+      step={step}
+      min={min}
+      max={max}
+      value={text}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+    />
+  );
+};
+
+InputNumber.defaultProps = {
+  autoComplete: 'off',
+  value: '',
+  step: 1
+};
+
+export function parseText(text) {
   if (isNumber(text)) return text;
 
   if (isString(text)) {
@@ -16,8 +94,6 @@ export function parseText(text, { max, min } = {}) {
     const num = parseFloat(text);
 
     if (!isNaN(num)) {
-      if (isNumber(max) && num > max) return max;
-      if (isNumber(min) && num < min) return min;
       return num;
     }
   }
@@ -25,7 +101,7 @@ export function parseText(text, { max, min } = {}) {
   return '';
 }
 
-export function changeValue(mod, value, { max, min, step } = {}) {
+export function changeValue(mod, value, max, min, step) {
   if (value === '') {
     if (isNumber(min)) return min;
     return '';
@@ -42,78 +118,6 @@ export function changeValue(mod, value, { max, min, step } = {}) {
   }
 
   return value;
-}
-
-class InputNumber extends Component {
-  static defaultProps = {
-    autoComplete: 'off',
-    value: '',
-    step: 1
-  };
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.value !== state.prev && props.value !== state.value) {
-      return {
-        prev: props.value,
-        value: props.value,
-        text: `${props.value}`
-      };
-    }
-
-    return { prev: props.value };
-  }
-
-  state = {
-    value: '',
-    text: ''
-  };
-
-  change(value) {
-    if (this.props.onChange) {
-      this.props.onChange(value);
-    }
-  }
-
-  up() {
-    this.change(changeValue('+', this.state.value, this.props));
-  }
-
-  down() {
-    this.change(changeValue('-', this.state.value, this.props));
-  }
-
-  handleKeyDown = e => {
-    if (e.keyCode === KEY_UP) {
-      this.up();
-    } else if (e.keyCode === KEY_DOWN) {
-      this.down();
-    }
-
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(e);
-    }
-  };
-
-  handleChange = text => {
-    const value = parseText(text, this.props);
-    this.setState({ text, value }, () => {
-      this.change(value);
-    });
-  };
-
-  render() {
-    const { step, min, max, value, onChange, ...props } = this.props;
-
-    return (
-      <input
-        {...props}
-        type="text"
-        value={this.state.text}
-        onChange={e => this.handleChange(e.target.value)}
-        onKeyDown={this.handleKeyDown}
-      />
-    );
-  }
 }
 
 export default InputNumber;
