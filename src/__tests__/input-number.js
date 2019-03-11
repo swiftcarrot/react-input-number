@@ -26,8 +26,7 @@ test('changeValue', () => {
 });
 
 test('render', () => {
-  const component = renderer.create(<InputNumber />);
-  expect(component.toJSON()).toMatchInlineSnapshot(`
+  expect(renderer.create(<InputNumber />).toJSON()).toMatchInlineSnapshot(`
 <input
   autoComplete="off"
   className="css-y2zyrq-InputNumber"
