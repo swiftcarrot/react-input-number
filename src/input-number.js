@@ -47,6 +47,7 @@ const InputNumber = ({
 
   function up() {
     if (onChange) {
+      console.log('up', value, max, min, step);
       onChange(changeValue('+', value, max, min, step));
     }
   }

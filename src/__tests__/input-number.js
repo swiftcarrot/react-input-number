@@ -54,30 +54,30 @@ test('InputNumber', () => {
 
   const wrap = mount(<App />);
 
-  wrap.find('input').simulate('change', {
-    target: { value: '-' }
-  });
+  wrap.find('input').simulate('change', { target: { value: '-' } });
   expect(wrap.state().number).toBe('');
 
-  wrap.find('input').simulate('change', {
-    target: { value: '-1' }
-  });
+  wrap.find('input').simulate('change', { target: { value: '-1' } });
   expect(wrap.state().number).toBe(-1);
 
-  wrap.find('input').simulate('change', {
-    target: { value: '0' }
-  });
+  wrap.find('input').simulate('change', { target: { value: '0' } });
   expect(wrap.state().number).toBe(0);
 
-  wrap.find('input').simulate('change', {
-    target: { value: '0.0' }
-  });
+  wrap.find('input').simulate('change', { target: { value: '0.0' } });
   expect(wrap.state().number).toBe(0);
 
-  wrap.find('input').simulate('change', {
-    target: { value: '0.06' }
-  });
+  wrap.find('input').simulate('change', { target: { value: '0.06' } });
   expect(wrap.state().number).toBe(0.06);
+
+  wrap.find('input').simulate('keydown', { keyCode: 38 });
+  setTimeout(() => {
+    expect(wrap.state().number).toBe(1.06);
+  }, 10);
+
+  wrap.find('input').simulate('keydown', { keyCode: 40 });
+  setTimeout(() => {
+    expect(wrap.state().number).toBe(-0.94);
+  }, 10);
 
   wrap.setState({ number: -10.2 });
   setTimeout(() => {
