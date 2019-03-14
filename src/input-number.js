@@ -7,6 +7,10 @@ import { useState, useEffect } from 'react';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
+const IS_IOS =
+  typeof navigator !== 'undefined'
+    ? navigator.userAgent.match(/iPhone|iPad|iPod/i)
+    : false;
 
 const InputNumber = ({
   step,
@@ -15,6 +19,7 @@ const InputNumber = ({
   value,
   onChange,
   onKeyDown,
+  enableMobileNumericKeyboard,
   ...props
 }) => {
   const [text, setText] = useState(value);
@@ -31,6 +36,10 @@ const InputNumber = ({
     if (onChange) {
       onChange(value);
     }
+  }
+
+  function handleWheel(e) {
+    e.target.blur();
   }
 
   function handleKeyDown(e) {
@@ -57,31 +66,45 @@ const InputNumber = ({
     }
   }
 
-  return (
-    <input
-      {...props}
-      css={{
-        MozAppearance: 'textfield',
-        '&::-webkit-inner-spin-button, &::::-webkit-outer-spin-button': {
-          WebkitAppearance: 'none',
-          margin: 0
-        }
-      }}
-      type="number"
-      step={step}
-      min={min}
-      max={max}
-      value={text}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
-    />
-  );
+  const inputProps = {
+    value: text,
+    onChange: handleChange,
+    onKeyDown: handleKeyDown,
+    onWheel: handleWheel
+  };
+
+  if (enableMobileNumericKeyboard) {
+    return (
+      <input
+        {...props}
+        {...inputProps}
+        css={styles}
+        type="number"
+        inputMode="numeric"
+        pattern={IS_IOS ? `[0-9]*` : ''}
+        step={step}
+        min={min}
+        max={max}
+      />
+    );
+  }
+
+  return <input {...props} {...inputProps} css={styles} type="text" />;
 };
 
 InputNumber.defaultProps = {
   autoComplete: 'off',
+  enableMobileNumericKeyboard: false,
   value: '',
   step: 1
+};
+
+const styles = {
+  MozAppearance: 'textfield',
+  '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
+    WebkitAppearance: 'none',
+    margin: 0
+  }
 };
 
 export function parseText(text) {

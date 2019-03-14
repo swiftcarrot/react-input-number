@@ -15,7 +15,11 @@ yarn add react-input-number
 npm install react-input-number --save
 ```
 
-### Usage
+### Demo
+
+[https://code.swiftcarrot.com/react-input-number](https://code.swiftcarrot.com/react-input-number)
+
+### Basic usage
 
 ```javascript
 import React, { useState } from 'react';
@@ -29,6 +33,10 @@ function App() {
   );
 }
 ```
+
+### enableMobileNumericKeyboard
+
+`<InputNumber enableMobileNumericKeyboard />` will open a numeric keyboard on ios and android devices. Notice that on ios the keyboard doesnot contain the `.`(dot) character for floating numbers.
 
 ### License
 

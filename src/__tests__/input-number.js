@@ -29,9 +29,25 @@ test('render', () => {
   expect(renderer.create(<InputNumber />).toJSON()).toMatchInlineSnapshot(`
 <input
   autoComplete="off"
-  className="css-y2zyrq-InputNumber"
+  className="css-11mdgg1-InputNumber"
   onChange={[Function]}
   onKeyDown={[Function]}
+  onWheel={[Function]}
+  type="text"
+  value=""
+/>
+`);
+
+  expect(renderer.create(<InputNumber enableMobileNumericKeyboard />).toJSON())
+    .toMatchInlineSnapshot(`
+<input
+  autoComplete="off"
+  className="css-11mdgg1-InputNumber"
+  inputMode="numeric"
+  onChange={[Function]}
+  onKeyDown={[Function]}
+  onWheel={[Function]}
+  pattern=""
   step={1}
   type="number"
   value=""
