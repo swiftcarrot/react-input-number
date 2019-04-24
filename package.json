@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/wangzuo/react-input-number/issues"
   },
-  "homepage": "https://code.swiftcarrot.com/react-input-number",
+  "homepage": "https://swiftcarrot.dev/react-input-number",
   "peerDependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4"

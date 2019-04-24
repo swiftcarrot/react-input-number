@@ -17,7 +17,7 @@ npm install react-input-number --save
 
 ### Demo
 
-[https://code.swiftcarrot.com/react-input-number](https://code.swiftcarrot.com/react-input-number)
+[https://swiftcarrot.dev/react-input-number](https://swiftcarrot.dev/react-input-number)
 
 ### Basic usage
 
