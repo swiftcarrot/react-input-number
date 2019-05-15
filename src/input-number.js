@@ -20,6 +20,7 @@ const InputNumber = ({
   onChange,
   onKeyDown,
   enableMobileNumericKeyboard,
+  component,
   ...props
 }) => {
   const [text, setText] = useState(value);
@@ -74,28 +75,32 @@ const InputNumber = ({
   };
 
   if (enableMobileNumericKeyboard) {
-    return (
-      <input
-        {...props}
-        {...inputProps}
-        css={styles}
-        type="number"
-        inputMode="numeric"
-        pattern={IS_IOS ? `[0-9]*` : ''}
-        step={step}
-        min={min}
-        max={max}
-      />
-    );
+    return jsx(component, {
+      ...props,
+      ...inputProps,
+      css: styles,
+      type: 'number',
+      inputMode: 'numeric',
+      pattern: IS_IOS ? `[0-9]*` : '',
+      step: step,
+      min: min,
+      max: max
+    });
   }
 
-  return <input {...props} {...inputProps} css={styles} type="text" />;
+  return jsx(component, {
+    ...props,
+    ...inputProps,
+    css: styles,
+    type: 'text'
+  });
 };
 
 InputNumber.defaultProps = {
   autoComplete: 'off',
   enableMobileNumericKeyboard: false,
   value: '',
+  component: 'input',
   step: 1
 };
 
