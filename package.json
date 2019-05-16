@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "5.0.12",
+  "version": "5.0.13",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -22,12 +22,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangzuo/react-input-number.git"
+    "url": "https://github.com/swiftcarrot/react-input-number.git"
   },
   "author": "Wang Zuo <wzuoadjusted@gmail.com> (https://wangzuo.me/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wangzuo/react-input-number/issues"
+    "url": "https://github.com/swiftcarrot/react-input-number/issues"
   },
   "homepage": "https://swiftcarrot.dev/react-input-number",
   "peerDependencies": {
