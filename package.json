@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "5.0.10",
+  "version": "5.0.12",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "babel-jest": "^24.8.0",
-    "babel-preset-swiftcarrot": "^0.6.1",
+    "babel-preset-swiftcarrot": "^0.6.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "jest": "^24.8.0",

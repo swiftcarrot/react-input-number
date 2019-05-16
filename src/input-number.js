@@ -29,8 +29,7 @@ const InputNumber = ({
     setText(value);
   }, [value]);
 
-  function handleChange(e) {
-    const text = e.target.value;
+  function handleChange(text) {
     const value = parseText(text);
 
     setText(text);
@@ -96,11 +95,20 @@ const InputNumber = ({
   });
 };
 
+const Input = ({ onChange, ...props }) => {
+  function handleChange(e) {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  }
+  return <input {...props} onChange={handleChange} />;
+};
+
 InputNumber.defaultProps = {
   autoComplete: 'off',
   enableMobileNumericKeyboard: false,
   value: '',
-  component: 'input',
+  component: Input,
   step: 1
 };
 
