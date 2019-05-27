@@ -7,7 +7,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production rollup -c",
-    "test": "jest --coverage",
+    "test": "NODE_ENV=production jest --coverage",
     "prepublishOnly": "npm test && npm run build",
     "watch": "rollup -cw"
   },

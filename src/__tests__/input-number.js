@@ -29,7 +29,7 @@ test('render', () => {
   expect(renderer.create(<InputNumber />).toJSON()).toMatchInlineSnapshot(`
     <input
       autoComplete="off"
-      className="css-11mdgg1-InputNumber"
+      className="css-1j3bwou"
       onChange={[Function]}
       onKeyDown={[Function]}
       onWheel={[Function]}
@@ -42,7 +42,7 @@ test('render', () => {
     .toMatchInlineSnapshot(`
     <input
       autoComplete="off"
-      className="css-11mdgg1-InputNumber"
+      className="css-1j3bwou"
       inputMode="numeric"
       onChange={[Function]}
       onKeyDown={[Function]}
