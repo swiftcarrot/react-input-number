@@ -1,6 +1,6 @@
 {
   "name": "react-input-number",
-  "version": "5.0.16",
+  "version": "5.0.17",
   "description": "React number input component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
