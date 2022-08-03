@@ -31,8 +31,8 @@
   },
   "homepage": "https://swiftcarrot.dev/react-input-number",
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.4 || ^18.2.0",
+    "react-dom": "^16.8.4 || ^18.2.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
